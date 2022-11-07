@@ -1,0 +1,90 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+<div class="main">
+  <article id="mainArticle">
+      <div id="inner-grid">
+      {% for open_app in open_apps %}
+        <div class="application_list">
+            <div class="row">
+                <div class="col-2">
+                    <center>
+                        <h1>{{open_app.id}}</h1>
+                    </center>
+                </div>
+                <div class="col-6">
+                    <p><h3><a href=""> {{open_app.city}} {{open_app.address}}</a></h3> </p>
+                    <p><h4> {{open_app.customer}} {{open_app.customer_phone}}</h4> </p>
+                    <p><span>{{open_app.published}}</span></p>
+                </div>
+                <div class="col-2">
+                    <button class="show_details" method="post">
+                        <img class="icon" data-toggle="collapse" href="#collapse{{open_app.id}}" role="button"
+                             aria-expanded="false" aria-controls="collapseExample" src="../../../media/menu.png" alt="">
+                        <input type="hidden" name="current_id" value="{{open_app.id}}">
+                    </button>
+                </div>
+                <div class="col-2">
+                    <button class="close_app_btn">
+                        <img class="icon" src="../../../media/done.png" alt="">
+                    </button>
+                </div>
+            </div>
+            <div class="row collapse" id="collapse{{open_app.id}}">
+                <div class="col-2"></div>
+                <div class="car card-body col-6">
+                    <p>Описание: {{open_app.description}}</p>
+                    {% if open_app.price %}
+                    <p>Цена: {{open_app.price}}</p>
+                    {% endif %}
+                    <p><span>Выполнить до {{open_app.deadline}}</span></p>
+                </div>
+                <div class="col-4 close_image">
+                    <button class="close_app_btn" data-toggle="modal" data-target="#ModalWindow{{open_app.id}}">
+                        Закрыть
+                    </button>
+                    <div class="modal fade" id="ModalWindow{{open_app.id}}"
+                    tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalLabel">
+                                        Введите количество использованного материала и укажите стоимость работ
+                                    </h5>
+                                    <button class="btn-close" type="button"
+                                    data-dismiss="modal" aria-label="Закрыть">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Тело
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-dismiss="modal">
+                                        Отменить
+                                    </button>
+                                    <button class="btn btn-primary close_app">
+                                        Закрыть заявку
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      {% endfor %}
+      </div>
+  </article>
+  <div class="siteAds" id="siteAds"></div>
+    </div>
+    {% else %}
+    <div class="signin">
+        <h1><a href="{% url 'login:login' %}">SIGN IN</a></h1>
+    </div>
+    {% endif %}
+
+{% endblock %}
