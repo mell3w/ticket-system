@@ -178,3 +178,39 @@ article {
 .show_details:hover{
     opacity: .5;
 }
+
+.create-form{
+    padding: 16px;
+    border-radius:7px;
+    border:0px;
+    display: block;
+    margin: 15px;
+    width: 300px;
+    color:#272125;
+    font-size:18px;
+    height: 54px;
+}
+
+.create-form:focus{
+    outline-color: rgba(0,0,0,0);
+    background: rgba(255,255,255,.95);
+    color: #e74c3c;
+}
+@media screen and (min-width:750px){
+    .text-left{
+    align-text: left;
+    font-size: 25px;
+    color: black;
+    text-shadow: 1px 1px 1px black;
+    border: solid;
+    border-radius: 1px;
+}
+}
+@media screen and (max-width:750px){
+    .text-left{
+    align-text: left;
+    font-size: 10px;
+    color: black;
+}
+}
+

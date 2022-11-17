@@ -1,0 +1,60 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+
+
+
+
+<div class="main">
+  <article id="mainArticle">
+      <div id="inner-grid">
+      {% for completed_app in completed_apps %}
+        <div class="application_list">
+            <div class="row">
+                <div class="col-2">
+                    <center>
+                        <h1>{{completed_app.id}}</h1>
+                    </center>
+                </div>
+                <div class="col-6">
+                    <p><h3><a href=""> {{completed_app.city}} {{completed_app.address}}</a></h3> </p>
+                    <p><h4> {{completed_app.customer}} {{completed_app.customer_phone}}</h4> </p>
+                    <p><span>{{completed_app.published}}</span></p>
+                </div>
+                <div class="col-4">
+                        <button id="open_modal"  class="show_details" method="post">
+                            <img class="icon" data-toggle="collapse" href="#collapse{{completed_app.id}}" role="button"
+                                 aria-expanded="false" aria-controls="collapseExample" src="../../../media/menu.png" alt="">
+                        </button>
+                </div>
+            </div>
+            <div class="row collapse" id="collapse{{completed_app.id}}">
+                <div class="col-2"></div>
+                <div class="car card-body col-6">
+                    <p>Описание: {{completed_app.description}}</p>
+                    <p>УПК-7 :  {{completed_app.ykp7}}</p>
+                    <p>УПК-12 :  {{completed_app.ykp12}}</p>
+                    <p>MD :  {{completed_app.md}}</p>
+                    <p>RF :  {{completed_app.rf}}</p>
+                    <p>TM :  {{completed_app.tm}}</p>
+                    <p>Доводчик :  {{completed_app.door_closer}}</p>
+                    {% if completed_app.monetary %}
+                    <p>Цена: {{completed_app.price}}</p>
+                    <p>Премия: {{completed_app.premium}}</p>
+                    <p>Сдать: {{completed_app.change}}</p>
+                    {% endif %}
+                    <p><span>Выполнено {{completed_app.closing_date}}</span></p>
+                </div>
+                <div class="col-4 close_image">
+                </div>
+            </div>
+        </div>
+      {% endfor %}
+      </div>
+  </article>
+  <div class="siteAds" id="siteAds"></div>
+    </div>
+
+
+{% endblock %}

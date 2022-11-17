@@ -1,0 +1,86 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+
+
+
+<header>
+    <div class="row">
+        <div class="col-4"></div>
+            <div class="col-4">
+                    <div class="text-left">
+                        <center>
+                            <p>БАЛАНС</p>
+                        </center>
+                        <p>Полная сумма: {{balance.price}}</p>
+                        <p>Премия: {{balance.premium}}</p>
+                        <p>Сдать: {{balance.change}}</p>
+                    </div>
+            </div>
+    </div>
+</header>
+
+
+
+<div class="main">
+  <article id="mainArticle">
+      <div id="inner-grid">
+      {% for app in apps %}
+        <div class="application_list">
+            <div class="row">
+                <div class="col-2">
+                    <center>
+                        <h1>{{app.id}}</h1>
+                    </center>
+                </div>
+                <div class="col-6">
+                    <p><h3><a href=""> {{app.city}} {{app.address}}</a></h3> </p>
+                    <p><h4> {{app.customer}} {{app.customer_phone}}</h4> </p>
+                    <p><span>{{app.published}}</span></p>
+                </div>
+                <div class="col-2">
+                        <button id="open_modal"  class="show_details" method="post">
+                            <img class="icon" data-toggle="collapse" href="#collapse{{app.id}}" role="button"
+                                 aria-expanded="false" aria-controls="collapseExample" src="../../../media/menu.png" alt="">
+                        </button>
+                </div>
+                <div class="col-2">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="current_app" value="{{app.id}}">
+                        <button class="close_app_btn"  name="handed_over" method="post">
+                            <img class="icon" src="../../../media/dollar.png" alt="">
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row collapse" id="collapse{{app.id}}">
+                <div class="col-2"></div>
+                <div class="car card-body col-6">
+                    <p>Описание: {{app.description}}</p>
+                    <p>УПК-7 :  {{app.ykp7}}</p>
+                    <p>УПК-12 :  {{app.ykp12}}</p>
+                    <p>MD :  {{app.md}}</p>
+                    <p>RF :  {{app.rf}}</p>
+                    <p>TM :  {{app.tm}}</p>
+                    <p>Доводчик :  {{app.door_closer}}</p>
+                    {% if app.monetary %}
+                    <p>Цена: {{app.price}}</p>
+                    <p>Премия: {{app.premium}}</p>
+                    <p>Сдать: {{app.change}}</p>
+                    {% endif %}
+                    <p><span>Выполнено {{app.closing_date}}</span></p>
+                </div>
+                <div class="col-4 close_image">
+                </div>
+            </div>
+        </div>
+      {% endfor %}
+      </div>
+  </article>
+  <div class="siteAds" id="siteAds"></div>
+    </div>
+
+
+{% endblock %}

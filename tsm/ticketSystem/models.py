@@ -22,7 +22,7 @@ class Applications(models.Model):
     city = models.CharField(max_length=30,db_index=True, verbose_name='Город')
     address = models.CharField(max_length=50, db_index=True, verbose_name='Адрес')
     customer = models.CharField(max_length=50,db_index=True, null=True, blank=True, verbose_name='Клиент')
-    customer_phone = PhoneNumberField(null=True,db_index=True, blank=True)
+    customer_phone = PhoneNumberField(null=True,db_index=True, blank=True, verbose_name='Телефон клиента')
     description = models.TextField(db_index=True,verbose_name='Описание проблемы')
     treaty = models.BooleanField(default=False, verbose_name='Отметить, если нужен договор')
     ykp7 = models.IntegerField(null=True, blank=True, default=0, verbose_name='УКП-7')
@@ -45,7 +45,7 @@ class Applications(models.Model):
     handed_over = models.BooleanField(default=False,db_index=True, verbose_name='Деньги посчитаны')
 
     def __str__(self):
-        return f'{self.id}'
+        return f'{self.id} - {self.master} - {self.address}'
 
     class Meta:
         verbose_name_plural = 'Заявки'
@@ -70,6 +70,8 @@ class Balance(models.Model):
             expression = money.aggregate(Sum(f)).get(str(f)+'__sum')
             if expression is not None:
                 setattr(self, f, expression)
+            else:
+                setattr(self, f, 0)
         super().save(args, kwargs)
 
 

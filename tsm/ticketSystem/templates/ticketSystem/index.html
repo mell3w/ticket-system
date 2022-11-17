@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    {% if user.is_authenticated %}
+
 <div class="main">
   <article id="mainArticle">
       <div id="inner-grid">
@@ -22,16 +22,19 @@
                     <p><span>{{open_app.published}}</span></p>
                 </div>
                 <div class="col-2">
-                    <button class="show_details" method="post">
-                        <img class="icon" data-toggle="collapse" href="#collapse{{open_app.id}}" role="button"
-                             aria-expanded="false" aria-controls="collapseExample" src="../../../media/menu.png" alt="">
-                        <input type="hidden" name="current_id" value="{{open_app.id}}">
-                    </button>
+                        <button id="open_modal"  class="show_details" method="post">
+                            <img class="icon" data-toggle="collapse" href="#collapse{{open_app.id}}" role="button"
+                                 aria-expanded="false" aria-controls="collapseExample" src="../../../media/menu.png" alt="">
+                        </button>
                 </div>
                 <div class="col-2">
-                    <button class="close_app_btn">
-                        <img class="icon" src="../../../media/done.png" alt="">
-                    </button>
+                    <form action="" method="post">
+                            {% csrf_token %}
+                        <button class="close_app_btn" name="fast_close" method="POST">
+                            <input type="hidden" name="current_id" value="{{open_app.id}}">
+                            <img class="icon" src="../../../media/done.png" alt="">
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="row collapse" id="collapse{{open_app.id}}">
@@ -59,16 +62,23 @@
                                     data-dismiss="modal" aria-label="Закрыть">
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    Тело
-                                </div>
+
+                                    <div class="modal-body">
+                                        <form action="" method="POST" name="close_app">
+
+                                                {% csrf_token %}
+                                            <input type="hidden" name="current_id" value="{{open_app.id}}">
+                                                {{form.as_p}}
+                                            <button type="submit" name="close_app" class="btn btn-primary" method="POST">Закрыть заявку</button>
+                                        </form>
+                                    </div>
+
                                 <div class="modal-footer">
                                     <button class="btn btn-secondary" data-dismiss="modal">
                                         Отменить
                                     </button>
-                                    <button class="btn btn-primary close_app">
-                                        Закрыть заявку
-                                    </button>
+
+
                                 </div>
                             </div>
                         </div>
@@ -81,10 +91,6 @@
   </article>
   <div class="siteAds" id="siteAds"></div>
     </div>
-    {% else %}
-    <div class="signin">
-        <h1><a href="{% url 'login:login' %}">SIGN IN</a></h1>
-    </div>
-    {% endif %}
+
 
 {% endblock %}

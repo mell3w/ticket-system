@@ -18,13 +18,17 @@
 <div id="mySidebar" class="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="{% url 'ticketSystem:index' %}">Окрытые заявки</a>
-  <a href="#">Закрытые заявки</a>
-  <a href="#">Сварка</a>
-  <a href="#">Создать заявку</a>
-  <a href="#">Склад</a>
-  <a href="#">Баланс</a>
+  <a href="{% url 'ticketSystem:completed' %}">Закрытые заявки</a>
+  <a href="{% url 'ticketSystem:create_new_app' %}">Создать заявку</a>
+  <a href="{% url 'ticketSystem:balance' %}">Баланс</a>
   <a href="https://docs.google.com/spreadsheets/d/1GmyAzwHqZhHnU4IzYw8rD0zIez8ZXYGqCNA-RhGYmCs/edit#gid=0">Панели</a>
   <a href="{% url 'login:logout' %}">Выйти</a>
+  <p>УКП7: {{equpiment.ykp7}}</p>
+  <p>УКП12: {{equpiment.ykp12}}</p>
+  <p>RF: {{equpiment.rf}}</p>
+  <p>TM: {{equpiment.tm}}</p>
+  <p>MD: {{equpiment.md}}</p>
+  <p>Доводчик: {{equpiment.door_closer}}</p>
 </div>
 
 <div id="main">
